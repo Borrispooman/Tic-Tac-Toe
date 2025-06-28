@@ -1,9 +1,5 @@
 const Board = (function() {
-    var boardArr = [null, null, null, null, null, null, null, null, null];
-
-    const clearBoard = function(){
-        boardArr = [null, null, null, null, null, null, null, null, null]
-    };
+    let boardArr = [null, null, null, null, null, null, null, null, null];
 
     const boardSquares = document.querySelector(".game-board").children;
     for(let i = 0; i < boardSquares.length; i++){
@@ -12,7 +8,6 @@ const Board = (function() {
 
             if (square.textContent === "" && Player.playerX.isWinner === false && Player.playerY.isWinner === false){
                 square.textContent=`${Player.getPlayerTurn()}`
-                console.log(square.className)
                 const currentIndex = parseInt(square.className)
                 Board.boardArr.splice(currentIndex, 1, `${Player.getPlayerTurn()}`)
                 Player.swapTurns()
@@ -37,7 +32,7 @@ const Board = (function() {
 
 
 
-    return ({boardArr: boardArr,  clearBoard: clearBoard, boardSpacesFull});
+    return ({boardArr: boardArr, boardSpacesFull});
 
 })();
 
@@ -85,7 +80,6 @@ const Player = (function(){
 const Game = (function () {
    
     const displayWinner = function(winner){
-        console.log("im a hcill guy")
         const displayArea = document.querySelector(".player-turn");
         displayArea.textContent = `Player ${winner} wins!`
     }
@@ -125,6 +119,8 @@ const Game = (function () {
                 }
 
             if (winCombinations[i].allValuesSame() === true){
+                    console.log(i)
+                    console.log(Board.boardArr);
                     displayWinner(winCombinations[i][0])
                     if (winCombinations[i][0]==="X"){
                         Player.playerX.isWinner = true;
@@ -149,12 +145,16 @@ const Game = (function () {
 
     restartBtn = document.querySelector(".restart")
     restartBtn.addEventListener("click", function(){
-        Board.clearBoard();
+        Board.boardArr = [null, null, null, null, null, null, null, null, null]
         const boardSquares = document.querySelector(".game-board").children;
         for(let i = 0; i < boardSquares.length; i++){
             const square = boardSquares[i];
             square.textContent="";
             Player.playerX.isTurn = true;
+            Player.playerY.isTurn = false;
+            Player.playerX.isWinner = false;
+            Player.playerY.isTurn = false;
+            
             displayTurn();
         }
         
