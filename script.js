@@ -1,35 +1,102 @@
-const gameBoard = (function() {
-    const board = ["x", "x", "x", null, null, null, null, null, null];
+const Board = (function() {
+    var boardArr = [null, null, null, null, null, null, null, null, null];
 
     const clearBoard = function(){
-        boardoard = [null, null, null, null, null, null, null, null, null]
+        boardArr = [null, null, null, null, null, null, null, null, null]
     };
 
-    const hi = function(){
-        return ("hello");
+    const boardSquares = document.querySelector(".game-board").children;
+    for(let i = 0; i < boardSquares.length; i++){
+        const square = boardSquares[i];
+        square.addEventListener("click", function(){
+
+            if (square.textContent === "" && Player.playerX.isWinner === false && Player.playerY.isWinner === false){
+                square.textContent=`${Player.getPlayerTurn()}`
+                console.log(square.className)
+                const currentIndex = parseInt(square.className)
+                Board.boardArr.splice(currentIndex, 1, `${Player.getPlayerTurn()}`)
+                Player.swapTurns()
+                Game.displayTurn();
+                Game.checkWinner(Board.boardArr)
+                ;
+            }
+
+            else{}
+        })
+    }
+    const boardSpacesFull = function(){
+        if(boardArr.includes(null)){
+            return false;
+        }
+
+        else{
+            return true;
+        }
     }
 
-    
 
-    return ({board: board,  clearBoard: clearBoard, hi: hi});
+
+
+    return ({boardArr: boardArr,  clearBoard: clearBoard, boardSpacesFull});
 
 })();
 
 
-function createPlayer(){
-    const greet = function (){
-        console.log("hello world")
+const Player = (function(){
+
+    const playerX = {
+        isTurn: true,
+        isWinner: false
     }
 
-    const setMarker = function(){}
+    const playerY = {
+        isTurn: false,
+        isWinner: false
+    }
 
-    return ({greet: greet})
+    const getPlayerTurn = function(){
+        if (playerX.isTurn === true){
+            return ("X")
+        }
 
-} 
+        else{
+            return("O")
+        }
+    }
 
-const gameControls = (function () {
+    const swapTurns = function(){
+        if (playerX.isTurn === true){
+            playerX.isTurn = false;
+            playerY.isTurn = true;
+        }
+
+        else{
+            playerX.isTurn = true;
+            playerY.isTurn = false;
+        }
+
+
+    }
+
+    return({playerX, playerY, getPlayerTurn, swapTurns});
     
-    const checkForWinner = function(gameBoard){
+})();
+
+const Game = (function () {
+   
+    const displayWinner = function(winner){
+        console.log("im a hcill guy")
+        const displayArea = document.querySelector(".player-turn");
+        displayArea.textContent = `Player ${winner} wins!`
+    }
+
+    const displayDraw = function(){
+        displayArea = document.querySelector(".player-turn");
+        displayArea.textContent = `It's a Draw!`
+    }
+
+
+    const checkWinner = function(gameBoard){
 
         Array.prototype.allValuesSame = function() {
             for (let i = 1; i < this.length; i++) {
@@ -40,34 +107,81 @@ const gameControls = (function () {
             return true;
         }
 
-
         const topRow = [gameBoard[0], gameBoard[1], gameBoard[2]];
-        const middleRow = [gameBoard[4], gameBoard[5], gameBoard[6]];
-        const bottomRow = [gameBoard[7], gameBoard[8], gameBoard[9]];
-        const leftCol = [gameBoard[1], gameBoard[4], gameBoard[7]];    
-        const midCol = [gameBoard[2], gameBoard[5], gameBoard[8]];
-        const rightCol = [gameBoard[3], gameBoard[6], gameBoard[9]];   
-        const leftDiag = [gameBoard[1], gameBoard[5], gameBoard[9]]; 
-        const rightDiag = [gameBoard[3], gameBoard[5], gameBoard[7]]; 
+        const middleRow = [gameBoard[3], gameBoard[4], gameBoard[5]];
+        const bottomRow = [gameBoard[6], gameBoard[7], gameBoard[8]];
+        const leftCol = [gameBoard[0], gameBoard[3], gameBoard[6]];    
+        const midCol = [gameBoard[1], gameBoard[4], gameBoard[7]];
+        const rightCol = [gameBoard[2], gameBoard[5], gameBoard[8]];   
+        const leftDiag = [gameBoard[0], gameBoard[4], gameBoard[8]]; 
+        const rightDiag = [gameBoard[2], gameBoard[4], gameBoard[6]]; 
         
         const winCombinations = [topRow, middleRow, bottomRow, leftCol, midCol, rightCol, leftDiag, rightDiag]
         
         for (let i = 0; i < winCombinations.length; i++){
+
+            if(winCombinations[i][0]=== null ){
+                    continue;
+                }
+
             if (winCombinations[i].allValuesSame() === true){
-                return (winCombinations[i][0])
+                    displayWinner(winCombinations[i][0])
+                    if (winCombinations[i][0]==="X"){
+                        Player.playerX.isWinner = true;
+                    }
+
+                    else{
+                        Player.playerY.isTurn = true;
+                    }
             }
-            else{}
+            if (winCombinations[i].allValuesSame() === true && Board.boardSpacesFull()===true){
+                displayDraw();
+            }
+
         }
         
     }
 
-    return ({checkForWinner: checkForWinner})
+    const displayTurn = function(){
+        displayArea = document.querySelector(".player-turn")
+        displayArea.textContent = `Player ${Player.getPlayerTurn()}'s turn`
+    }
 
+    restartBtn = document.querySelector(".restart")
+    restartBtn.addEventListener("click", function(){
+        Board.clearBoard();
+        const boardSquares = document.querySelector(".game-board").children;
+        for(let i = 0; i < boardSquares.length; i++){
+            const square = boardSquares[i];
+            square.textContent="";
+            Player.playerX.isTurn = true;
+            displayTurn();
+        }
+        
+    })
+
+
+    return ({checkWinner, displayTurn, displayWinner, displayDraw})
 
 
 })();
 
 
 
-console.log(gameControls.checkForWinner(gameBoard.board));
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+//if checkForWinner returns undefined, its a tie
+
+//if it returns null, theres no winner yet
