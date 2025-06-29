@@ -81,12 +81,12 @@ const Game = (function () {
    
     const displayWinner = function(winner){
         const displayArea = document.querySelector(".player-turn");
-        displayArea.textContent = `Player ${winner} wins!`
+        displayArea.textContent = `Player ${winner} wins! 🥳`
     }
 
     const displayDraw = function(){
         displayArea = document.querySelector(".player-turn");
-        displayArea.textContent = `It's a Draw!`
+        displayArea.textContent = `It's a Draw! 🤝`
     }
 
 
