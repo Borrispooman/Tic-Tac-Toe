@@ -1,10 +1,10 @@
 export function checkWinner(gameBoard){
 
-        Array.prototype.allValuesSame = function() {
-            for (let i = 1; i < this.length; i++) {
-            if (this[i] !== this[0]) {
-                return false;
-            }
+        const allValuesSame = function(arr) {
+            for (let i = 1; i < arr.length; i++) {
+							if (this[i] !== this[0]) {
+									return false;
+							}
             }
             return true;
         }
@@ -27,8 +27,6 @@ export function checkWinner(gameBoard){
                 }
 
             if (winCombinations[i].allValuesSame() === true){
-                    console.log(i);
-                    console.log(Board.boardArr);
                     if (winCombinations[i][0]==="X"){
 												return("X");
                     }
@@ -37,13 +35,14 @@ export function checkWinner(gameBoard){
 												return("O");
                     }
             }
-            if (winCombinations[i].allValuesSame() === true && Board.boardSpacesFull()===true){
+            if (allValuesSame(winCombinations[i]) === true && !(gameBoard.includes(null))){
             	return("draw"); 
             }
 						
 						else {
 							return(null);
         		}
-        
-    		}
+		
+
+    	}
 };

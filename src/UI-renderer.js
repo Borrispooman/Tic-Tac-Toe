@@ -1,7 +1,7 @@
 export const UIrender = (function () {
-	const placeSymbol = function(symbol, boardSpaceClass){
+	const placeMarker = function(marker, boardSpaceClass){
 		const spaceToDisplaySym = document.querySelector(`.${boardSpaceClass}`);
-		spaceToDisplaySym.textContent = `${symbol}`
+		spaceToDisplaySym.textContent = `${marker}`
 	}
 	
 	const displayWinner = function(winner){
@@ -10,17 +10,17 @@ export const UIrender = (function () {
   }
 
   const displayDraw = function(){
-        displayArea = document.querySelector(".player-turn");
+        const displayArea = document.querySelector(".player-turn");
         displayArea.textContent = `It's a Draw! 🤝`
 	}
 
 	const displayTurn = function(){
-        displayArea = document.querySelector(".player-turn")
+        const displayArea = document.querySelector(".player-turn")
         displayArea.textContent = `Player ${Player.getPlayerTurn()}'s turn`
     }
 
 	return {
-		placeSymbol,
+		placeMarker,
 		displayWinner,
 		displayDraw,
 		displayTurn

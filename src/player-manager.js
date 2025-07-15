@@ -10,7 +10,7 @@ const Player = (function(){
         isWinner: false
     }
 
-    const getPlayerSymbol= function(){
+    const getPlayerMarker= function(){
         if (playerX.isTurn === true){
             return ("X")
         }
@@ -34,7 +34,7 @@ const Player = (function(){
 
     }
 
-    return({playerX, playerO, getPlayerSymbol, swapPlayerTurns});
+    return({playerX, playerO, getPlayerMarker, swapPlayerTurns});
     
 })();
 

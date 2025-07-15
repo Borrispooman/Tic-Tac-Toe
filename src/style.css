@@ -50,7 +50,7 @@ h1, h2, h3, h4, h5, h6 {
     grid-gap: 5px;
 }
 
-#board-square{
+.board-square{
     height: 100%;
     width: 100%;
     background: rgb(135, 185, 202);
