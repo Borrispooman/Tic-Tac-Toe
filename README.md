@@ -1,0 +1,3 @@
+Practicing javascript skills by making a Tic Tac Toe game in the browser 😀 
+
+-- I've now come back and refactored this project to use modules and webpack, because im learning about the SOLID design principles and alot of the objects in my original code depended on each other...
