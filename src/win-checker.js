@@ -1,13 +1,6 @@
-export function checkWinner(gameBoard){
+export default function checkWinner(gameBoard){
 
-        const allValuesSame = function(arr) {
-            for (let i = 1; i < arr.length; i++) {
-							if (this[i] !== this[0]) {
-									return false;
-							}
-            }
-            return true;
-        }
+       const allValuesSame = arr => arr.every(val => val === arr[0]);
 
         const topRow = [gameBoard[0], gameBoard[1], gameBoard[2]];
         const middleRow = [gameBoard[3], gameBoard[4], gameBoard[5]];
@@ -22,27 +15,22 @@ export function checkWinner(gameBoard){
         
         for (let i = 0; i < winCombinations.length; i++){
 
-            if(winCombinations[i][0]=== null ){
-                    continue;
-                }
-
-            if (winCombinations[i].allValuesSame() === true){
-                    if (winCombinations[i][0]==="X"){
-												return("X");
-                    }
-
-                    else{
-												return("O");
-                    }
+            if (winCombinations[i].includes(null)){
+								if(i == winCombinations.length - 1){
+									return(null);
+								}
+								else{
+									continue;
+								}
             }
-            if (allValuesSame(winCombinations[i]) === true && !(gameBoard.includes(null))){
-            	return("draw"); 
+						else if (allValuesSame(winCombinations[i])){
+							return (winCombinations[i][0]);							
             }
-						
-						else {
-							return(null);
-        		}
-		
-
+						else if (!(gameBoard.includes(null))){
+							if(i == winCombinations.length -1){
+            		return("draw"); 
+							}
+            }
     	}
+			
 };

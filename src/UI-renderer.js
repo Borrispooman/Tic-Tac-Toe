@@ -1,6 +1,6 @@
-export const UIrender = (function () {
+const UIrender = (function () {
 	const placeMarker = function(marker, boardSpaceClass){
-		const spaceToDisplaySym = document.querySelector(`.${boardSpaceClass}`);
+		const spaceToDisplaySym = document.querySelector(`#\\3${boardSpaceClass}`);
 		spaceToDisplaySym.textContent = `${marker}`
 	}
 	
@@ -14,10 +14,10 @@ export const UIrender = (function () {
         displayArea.textContent = `It's a Draw! 🤝`
 	}
 
-	const displayTurn = function(){
+	const displayTurn = function(mark){
         const displayArea = document.querySelector(".player-turn")
-        displayArea.textContent = `Player ${Player.getPlayerTurn()}'s turn`
-    }
+        displayArea.textContent = `Player ${mark}'s turn`
+	}
 
 	return {
 		placeMarker,
@@ -28,3 +28,5 @@ export const UIrender = (function () {
 
 	
 })();
+
+export default UIrender;

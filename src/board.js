@@ -1,4 +1,4 @@
-export const Board = (function() {
+const Board = (function() {
     const boardArr = [null, null, null, null, null, null, null, null, null];
 
     
@@ -16,3 +16,4 @@ export const Board = (function() {
 
 })();
 
+export default Board;

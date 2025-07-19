@@ -1,3 +1,4 @@
-export const Game = (function(){
+const Game = (function(){
 	
 })();
+export default Game;

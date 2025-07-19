@@ -10,7 +10,7 @@ const Player = (function(){
         isWinner: false
     }
 
-    const getPlayerMarker= function(){
+    const getPlayerMarker = function(){
         if (playerX.isTurn === true){
             return ("X")
         }
@@ -23,12 +23,12 @@ const Player = (function(){
     const swapPlayerTurns = function(){
         if (playerX.isTurn === true){
             playerX.isTurn = false;
-            playerY.isTurn = true;
+            playerO.isTurn = true;
         }
 
         else{
             playerX.isTurn = true;
-            playerY.isTurn = false;
+            playerO.isTurn = false;
         }
 
 
@@ -38,4 +38,4 @@ const Player = (function(){
     
 })();
 
-
+export default Player;
